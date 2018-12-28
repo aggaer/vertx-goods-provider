@@ -39,7 +39,7 @@ class HttpServerVerticle : AbstractVerticle() {
 
         apiRouter.mountSubRouter("/api", subRouter)
 
-        val serverPort = config().getInteger(CONFIG_HTTP_SERVER_PORT, 8080)
+        val serverPort = config().getInteger(CONFIG_HTTP_SERVER_PORT, 18082)
         httpServer
             .requestHandler(apiRouter::accept)
             .listen(serverPort) { ar ->
@@ -57,7 +57,7 @@ class HttpServerVerticle : AbstractVerticle() {
             if (ar.succeeded()) {
                 val result = ar.result()
                 rc.response().putHeader("Content-Type", "application/json")
-                rc.response().end(result.toString())
+                rc.response().end(result.toBuffer())
             } else {
                 rc.fail(ar.cause())
             }

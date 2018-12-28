@@ -10,7 +10,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 const val CONFIG_JDBC_URL = "goods.jdbc.url"
-const val CONFIG_JDBC_DRIVER_CLASS = "goods.jdbc.driver_class"
 const val CONFIG_GOODS_PROVIDER = "goods.provider"
 const val CONFIG_USERNAME = "goods.username"
 const val CONFIG_PASSWORD = "goods.password"
@@ -28,11 +27,11 @@ class GoodsDatabaseVerticle : AbstractVerticle() {
                     "username" to config().getString(CONFIG_USERNAME, "root"),
                     "password" to config().getString(CONFIG_PASSWORD, "aggaer520"),
                     "database" to "yishouyun",
+                    "sslMode" to "disable",
                     "port" to 3306
                 )
             )
         )
-        log.info("database init complete")
         GoodsDatabaseService.create(sqlClient, sqlQueries, Handler {
             if (it.succeeded()) {
                 log.info("goods service register start")
@@ -44,7 +43,6 @@ class GoodsDatabaseVerticle : AbstractVerticle() {
                 log.error("接口代理：GoodsDatabaseService 注册失败：reason:${it.cause()}")
             }
         })
-        log.info("goods service register complete")
     }
 
     private fun loadSqlQueries(): Map<SqlQuery, String> {

@@ -15,6 +15,7 @@ repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -26,6 +27,7 @@ dependencies {
     compile group: 'io.vertx', name: 'vertx-service-proxy', version: '3.5.4'
     kapt "io.vertx:vertx-codegen:$vertx_version:processor"
     compileOnly "io.vertx:vertx-codegen:$vertx_version"
+    compile group: 'io.vertx', name: 'vertx-lang-kotlin-coroutines', version: '3.5.4'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }
